@@ -1,26 +1,142 @@
 [
   {
-    "ad": "DAP",
-    "stok": 5000
+    "ad": "Zodiac",
+    "stok": 17,
+    "durum": "YETERLİ"
   },
   {
-    "ad": "Amonyum S�lf�t",
-    "stok": 8000
+    "ad": "Quadris",
+    "stok": 7,
+    "durum": "YETERLİ"
   },
   {
-    "ad": "Potasyum Nitrat",
-    "stok": 3000
+    "ad": "Karete",
+    "stok": 8,
+    "durum": "YETERLİ"
   },
   {
-    "ad": "Mono Amonyum Fosfat",
-    "stok": 2500
+    "ad": "Torpedo",
+    "stok": 0,
+    "durum": "TÜKENDİ"
   },
   {
-    "ad": "Kalsiyum Nitrat",
-    "stok": 4000
+    "ad": "Laminar",
+    "stok": 2,
+    "durum": "KRİTİK"
   },
   {
-    "ad": "Magnezyum S�lf�t",
-    "stok": 1500
+    "ad": "Cytokin",
+    "stok": 3,
+    "durum": "KRİTİK"
+  },
+  {
+    "ad": "Nemanir",
+    "stok": 30,
+    "durum": "YETERLİ"
+  },
+  {
+    "ad": "Pemena",
+    "stok": 9,
+    "durum": "YETERLİ"
+  },
+  {
+    "ad": "Isabion",
+    "stok": 1,
+    "durum": "KRİTİK"
+  },
+  {
+    "ad": "Mapa 20sp",
+    "stok": 60,
+    "durum": "YETERLİ"
+  },
+  {
+    "ad": "Grenmaz",
+    "stok": 0,
+    "durum": "TÜKENDİ"
+  },
+  {
+    "ad": "Bordo",
+    "stok": 10,
+    "durum": "YETERLİ"
+  },
+  {
+    "ad": "Innostar 10-0-45+ME",
+    "stok": 4,
+    "durum": "YETERLİ"
+  },
+  {
+    "ad": "Clear Out 48 SL",
+    "stok": 0,
+    "durum": "TÜKENDİ"
+  },
+  {
+    "ad": "Can % 26 Gübre",
+    "stok": 0,
+    "durum": "TÜKENDİ"
+  },
+  {
+    "ad": "Fulvera hümik asit",
+    "stok": 59,
+    "durum": "YETERLİ"
+  },
+  {
+    "ad": "Greenleaf 20.20.20",
+    "stok": 0,
+    "durum": "TÜKENDİ"
+  },
+  {
+    "ad": "CANION PLUS",
+    "stok": 2,
+    "durum": "KRİTİK"
+  },
+  {
+    "ad": "DRT Doktor Tarsa Magnezyum Sülfat Damlama Gübresi",
+    "stok": 17,
+    "durum": "YETERLİ"
+  },
+  {
+    "ad": "CNPalmira Kalsiyum Nitrat",
+    "stok": 0,
+    "durum": "TÜKENDİ"
+  },
+  {
+    "ad": "BOTENUP",
+    "stok": 25,
+    "durum": "YETERLİ"
+  },
+  {
+    "ad": "BotePhos",
+    "stok": 30,
+    "durum": "YETERLİ"
+  },
+  {
+    "ad": "NitroEnt",
+    "stok": 4,
+    "durum": "YETERLİ"
+  },
+  {
+    "ad": "MelangeSC",
+    "stok": 5,
+    "durum": "YETERLİ"
+  },
+  {
+    "ad": "BLUE-GUARD Likit (Aşı ve Budama Macunu)",
+    "stok": 4,
+    "durum": "YETERLİ"
+  },
+  {
+    "ad": "MICROLEX",
+    "stok": 5,
+    "durum": "YETERLİ"
+  },
+  {
+    "ad": "CİFO FLORAL 20.20.20",
+    "stok": 15,
+    "durum": "YETERLİ"
+  },
+  {
+    "ad": "Üre",
+    "stok": 1,
+    "durum": "KRİTİK"
   }
 ]
