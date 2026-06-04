@@ -1,36 +1,26 @@
 [
-  {"ad":"DAP","stok":5000},
-  {"ad":"Amonyum Sülfat","stok":8000},
-  {"ad":"Potasyum Nitrat","stok":3000},
-  {"ad":"Mono Amonyum Fosfat","stok":2500},
-  {"ad":"Kalsiyum Nitrat","stok":4000},
-  {"ad":"Magnezyum Sülfat","stok":1500},
-  {"ad":"Zodiac","stok":17},
-  {"ad":"Quadris","stok":7},
-  {"ad":"Karete","stok":8},
-  {"ad":"Torpedo","stok":0},
-  {"ad":"Laminar","stok":2},
-  {"ad":"Cytokin","stok":3},
-  {"ad":"Nemanir","stok":30},
-  {"ad":"Pemena","stok":9},
-  {"ad":"Isabion","stok":1},
-  {"ad":"Mapa 20sp","stok":60},
-  {"ad":"Grenmaz","stok":0},
-  {"ad":"Bordo","stok":10},
-  {"ad":"Innostar 10-0-45+ME","stok":4},
-  {"ad":"Clear Out 48 SL","stok":0},
-  {"ad":"Can % 26 Gübre","stok":0},
-  {"ad":"Fulvera hümik asit","stok":59},
-  {"ad":"Greenleaf 20.20.20","stok":0},
-  {"ad":"CANION PLUS","stok":2},
-  {"ad":"DRT Magnezyum Sülfat Damlama","stok":17},
-  {"ad":"CNPalmira Kalsiyum Nitrat","stok":0},
-  {"ad":"BOTENUP","stok":25},
-  {"ad":"BotePhos","stok":30},
-  {"ad":"NitroEnt","stok":4},
-  {"ad":"MelangeSC","stok":5},
-  {"ad":"BLUE-GUARD Likit","stok":4},
-  {"ad":"MICROLEX","stok":5},
-  {"ad":"CİFO FLORAL 20.20.20","stok":15},
-  {"ad":"Üre","stok":1}
+  {
+    "ad": "DAP",
+    "stok": 5000
+  },
+  {
+    "ad": "Amonyum S�lf�t",
+    "stok": 8000
+  },
+  {
+    "ad": "Potasyum Nitrat",
+    "stok": 3000
+  },
+  {
+    "ad": "Mono Amonyum Fosfat",
+    "stok": 2500
+  },
+  {
+    "ad": "Kalsiyum Nitrat",
+    "stok": 4000
+  },
+  {
+    "ad": "Magnezyum S�lf�t",
+    "stok": 1500
+  }
 ]
