@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Erturan Tarım — Vana Haritaları</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Arial Black',Arial,sans-serif;
+  background:radial-gradient(ellipse at 20% 20%, #0a1628 0%, #050d1a 100%);
+  min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:20px;
+}
+.logo{
+  font-size:13px;letter-spacing:4px;text-transform:uppercase;
+  color:rgba(0,191,255,0.5);margin-bottom:8px;text-align:center;
+}
+h1{
+  font-size:clamp(20px,5vw,32px);color:#fff;text-align:center;margin-bottom:4px;
+  text-shadow:0 0 30px rgba(0,191,255,0.4);
+}
+.subtitle{
+  font-size:12px;color:rgba(255,255,255,0.3);text-align:center;margin-bottom:40px;
+  font-family:Arial,sans-serif;
+}
+.cards{
+  display:flex;flex-wrap:wrap;gap:20px;justify-content:center;width:100%;max-width:900px;
+}
+.card{
+  flex:1;min-width:240px;max-width:280px;
+  background:linear-gradient(135deg,rgba(0,20,50,0.9),rgba(0,40,80,0.8));
+  border:1px solid rgba(0,191,255,0.25);
+  border-radius:18px;padding:28px 24px;
+  text-decoration:none;
+  transition:transform 0.2s,box-shadow 0.2s,border-color 0.2s;
+  box-shadow:0 8px 32px rgba(0,0,0,0.5);
+  position:relative;overflow:hidden;
+}
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(0,191,255,0.6),transparent);
+}
+.card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 16px 48px rgba(0,191,255,0.2);
+  border-color:rgba(0,191,255,0.5);
+}
+.card-icon{font-size:36px;margin-bottom:14px;display:block;text-align:center;}
+.card-title{
+  font-size:20px;font-weight:900;color:#fff;text-align:center;
+  margin-bottom:6px;letter-spacing:1px;
+}
+.card-sub{
+  font-size:11px;color:rgba(0,191,255,0.7);text-align:center;
+  letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;
+}
+.card-stats{
+  display:flex;justify-content:space-around;
+  border-top:1px solid rgba(255,255,255,0.08);padding-top:14px;
+}
+.stat{text-align:center;}
+.stat-val{font-size:18px;font-weight:900;color:#00BFFF;}
+.stat-lbl{font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:1px;text-transform:uppercase;font-family:Arial,sans-serif;}
+.footer{
+  margin-top:40px;font-size:11px;color:rgba(255,255,255,0.2);
+  text-align:center;font-family:Arial,sans-serif;
+}
+.total-bar{
+  background:rgba(0,191,255,0.05);border:1px solid rgba(0,191,255,0.15);
+  border-radius:12px;padding:12px 24px;margin-bottom:32px;
+  text-align:center;
+}
+.total-bar span{color:#00BFFF;font-weight:900;font-size:18px;}
+.total-bar small{color:rgba(255,255,255,0.4);font-size:11px;font-family:Arial,sans-serif;display:block;margin-top:2px;}
+</style>
+</head>
+<body>
+
+<div class="logo">🌿 Erturan Tarım & Zeytincilik</div>
+<h1>Vana Harita Sistemi</h1>
+<p class="subtitle">Seferihisar Tepecik, İzmir — 02.06.2026</p>
+
+<div class="total-bar">
+  <span>15.349 Ağaç</span>
+  <small>Toplam 3 Ada · 70 Vana</small>
+</div>
+
+<div class="cards">
+
+  <a class="card" href="vana_harita_enhanced.html">
+    <span class="card-icon">🗺️</span>
+    <div class="card-title">ADA 1</div>
+    <div class="card-sub">Ana Arazi — Orijinal</div>
+    <div class="card-stats">
+      <div class="stat"><div class="stat-val">29</div><div class="stat-lbl">Vana</div></div>
+      <div class="stat"><div class="stat-val">5.095</div><div class="stat-lbl">Ağaç</div></div>
+      <div class="stat"><div class="stat-val">347</div><div class="stat-lbl">Sıra</div></div>
+    </div>
+  </a>
+
+  <a class="card" href="ada2_harita.html">
+    <span class="card-icon">🗺️</span>
+    <div class="card-title">ADA 2</div>
+    <div class="card-sub">Üst Arazi — Orijinal</div>
+    <div class="card-stats">
+      <div class="stat"><div class="stat-val">21</div><div class="stat-lbl">Vana</div></div>
+      <div class="stat"><div class="stat-val">3.875</div><div class="stat-lbl">Ağaç</div></div>
+      <div class="stat"><div class="stat-val">327</div><div class="stat-lbl">Sıra</div></div>
+    </div>
+  </a>
+
+  <a class="card" href="ada3_harita.html">
+    <span class="card-icon">🌱</span>
+    <div class="card-title">ADA 3</div>
+    <div class="card-sub">Fidanlık — +38 Yeni Dikim</div>
+    <div class="card-stats">
+      <div class="stat"><div class="stat-val">20</div><div class="stat-lbl">Vana</div></div>
+      <div class="stat"><div class="stat-val">6.379</div><div class="stat-lbl">Ağaç</div></div>
+      <div class="stat"><div class="stat-val">555</div><div class="stat-lbl">Sıra</div></div>
+    </div>
+  </a>
+
+</div>
+
+<div class="footer">
+  Gübre stoku ve geçmiş kayıtları GitHub üzerinden tüm adalarda senkronize edilir
+</div>
+
+</body>
+</html>
