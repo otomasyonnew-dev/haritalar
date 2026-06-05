@@ -319,7 +319,7 @@ function updateKunye(el,i){
 function kunyeGubre(agacSayisi){
   var cont=document.getElementById('kp-gubre-rows');
   cont.innerHTML="";
-  var aktifler=karisim.filter(function(k){return k.ad&&k.miktar>0;});
+  var aktifler=islemTipi==="gubre"?karisim.filter(function(k){return k.ad&&k.miktar>0;}):[];
   if(islemTipi==='gubre'&&aktifler.length>0){
     // Her urun ayri satir
     aktifler.forEach(function(k){
@@ -360,6 +360,7 @@ function islemDegisti(){
   islemTipi=document.getElementById('islemSelect').value;
   var aktif=islemTipi==='gubre';
   document.getElementById('karisimBtn').disabled=!aktif;
+  if(!aktif) document.getElementById("kp-gubre-rows").innerHTML="";
   kunyeGuncelle();
 }
 function loadStok(e){
@@ -407,6 +408,7 @@ function stokUygula(rows){
   toast("✓ "+GUBRE_LIST.length+" gübre yüklendi");
 }
 function karisimPanelAc(){
+  if(islemTipi!=="gubre"){toast("Gübreleme modunu seçin");return;}
   var modal=document.getElementById("karisim-modal");
   modal.style.display="flex";
   karisimSatirlariCiz();
@@ -648,7 +650,7 @@ function islemBaslat(){
   document.getElementById("btn-basladi").style.display="none";
   document.getElementById("btn-bitti").style.display="block";
   var islemAdi=islemTipi==="gubre"?"Gübreleme":"Sulama";
-  var urunStr=aktifler.length>0?aktifler.map(function(k){return k.ad;}).join(", "):"";
+  var urunStr=(islemTipi==="gubre"&&aktifler.length>0)?aktifler.map(function(k){return k.ad;}).join(", "):"";
   document.getElementById("kp-aktif-islem").style.display="block";
   document.getElementById("kp-aktif-islem").innerHTML=
     "⏱ "+islemAdi+" başladı: "+simdi.toLocaleTimeString("tr-TR")+"<br>"
@@ -668,7 +670,7 @@ function islemBitir(){
   var v=pos[aktifIslem.vanaIdx];
   var stokUyari=[];
   var aktifler=karisim.filter(function(k){return k.ad&&k.miktar>0;});
-  if(islemTipi==="gubre"){
+  if(islemTipi==="gubre"&&aktifler.length>0){
     aktifler.forEach(function(k){
       var g=GUBRE_LIST.find(function(x){return x.ad===k.ad;});
       if(!g) return;

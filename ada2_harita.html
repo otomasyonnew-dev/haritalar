@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>ADA2 - Vana Haritası</title>
+<title>ADA2 - Vana HaritasÄ±</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
@@ -74,6 +74,8 @@ body{font-family:Arial,sans-serif;background:#1a1a2e;color:#fff;overflow:hidden;
 .btn.k{background:linear-gradient(135deg,#1a3a6b,#0f284a);color:#7fbfff;border:1px solid #2d7acc;}
 .btn.k:hover{background:linear-gradient(135deg,#224488,#153366);}
 .btn.k:disabled{opacity:0.35;cursor:not-allowed;}
+.btn.o{background:linear-gradient(135deg,#6b3a1a,#4a280f);color:#ffcc7f;border:1px solid #cc7a2d;}
+.btn.o:hover{background:linear-gradient(135deg,#884a22,#5c3312);}
 
 .btn.s:hover{background:linear-gradient(135deg,#22884a,#155c33);}
 #topbar select{background:#0d2a45;color:#fff;border:1px solid rgba(0,191,255,0.4);border-radius:6px;padding:3px 6px;font-size:12px;cursor:pointer;max-width:140px;}
@@ -110,19 +112,34 @@ body{font-family:Arial,sans-serif;background:#1a1a2e;color:#fff;overflow:hidden;
 <div id="gh-durum" style="margin-top:12px;font-size:11px;color:rgba(255,255,255,0.5);min-height:16px;"></div>
 </div></div>
 <!-- GitHub Gecmis Modal -->
+<div id="rapor-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:99996;align-items:flex-start;justify-content:center;overflow-y:auto;padding:20px;">
+<div style="background:#fff;border-radius:12px;padding:24px;width:700px;max-width:95vw;color:#000;">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+<strong style="font-size:16px;">ERTURAN TARIM - ISLEM RAPORU</strong>
+<div style="display:flex;gap:8px;">
+<button onclick="window.print()" style="background:#0d2a45;color:#fff;border:none;border-radius:6px;padding:6px 14px;cursor:pointer;">🖨 Yazdır / PDF</button>
+<button onclick="document.getElementById('rapor-modal').style.display='none'" style="background:#555;color:#fff;border:none;border-radius:6px;padding:6px 14px;cursor:pointer;">Kapat</button>
+</div></div>
+<div id="rapor-icerik"></div>
+</div></div>
 <div id="gecmis-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:99997;align-items:center;justify-content:center;">
 <div style="background:linear-gradient(135deg,#0a1628,#0d2a45);border:1px solid rgba(0,191,255,0.4);border-radius:16px;padding:24px;width:420px;max-width:95vw;max-height:80vh;overflow-y:auto;box-shadow:0 16px 48px rgba(0,0,0,0.8);">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-<span style="color:#00BFFF;font-weight:900;font-size:15px;">📋 GÜBRE GEÇMİŞİ</span>
+<span style="color:#00BFFF;font-weight:900;font-size:15px;">📋 GEÇMİŞ</span>
+<div style="display:flex;gap:8px;align-items:center;">
+<button onclick="raporGoster()" style="background:rgba(0,191,255,0.15);border:1px solid rgba(0,191,255,0.4);color:#00BFFF;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer;">📄 Rapor Al</button>
 <button onclick="document.getElementById('gecmis-modal').style.display='none'" style="background:none;border:none;color:#fff;font-size:20px;cursor:pointer;">&times;</button>
+</div>
 </div>
 <div id="gecmis-liste"></div>
 </div></div>
 <div id="karisim-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:99999;align-items:center;justify-content:center;"><div style="background:linear-gradient(135deg,#0a1628,#0d2a45);border:1px solid rgba(0,191,255,0.4);border-radius:16px;padding:24px;min-width:340px;max-width:95vw;box-shadow:0 16px 48px rgba(0,0,0,0.8);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;"><span style="color:#00BFFF;font-weight:900;font-size:15px;letter-spacing:1px;">🧪 KARİŞİM DÜZENLE</span><button onclick="karisimPanelKapat()" style="background:none;border:none;color:#fff;font-size:20px;cursor:pointer;">&times;</button></div><div id="karisim-satirlar"></div><div style="margin-top:16px;display:flex;gap:8px;justify-content:flex-end;"><button class="btn g" onclick="karisimKaydet()">✔ Uygula</button><button class="btn r" onclick="karisimPanelKapat()">Vazgeç</button></div></div></div>
 <div id="kunye-panel"><span class="kp-label">VANA KUNYE</span><div class="kp-vno" id="kp-vno">V1</div><div class="kp-divider"></div><div class="kp-row"><span class="kp-rl">SIRA</span><span class="kp-rv" id="kp-sira">-</span></div><div class="kp-row"><span class="kp-rl">AGAC</span><span class="kp-rv" id="kp-agac">-</span></div><div id="kp-gubre-rows"></div>
 <div id="kp-yapildi-row" style="display:none;margin-top:8px;gap:6px;flex-direction:column;">
-<div id="kp-son-yapilan" style="font-size:10px;color:rgba(0,191,255,0.6);padding:4px 0;"></div>
-<button class="btn g" style="width:100%;font-size:11px;padding:5px;" onclick="gubreYapildi()">✅ Gübre Yapıldı</button>
+<div id="kp-son-yapilan" style="font-size:10px;color:rgba(0,191,255,0.5);padding:4px 0;line-height:1.4;"></div>
+<div id="kp-aktif-islem" style="display:none;background:rgba(255,165,0,0.1);border:1px solid rgba(255,165,0,0.4);border-radius:8px;padding:8px;font-size:11px;color:#ffaa00;line-height:1.5;"></div>
+<button id="btn-basladi" class="btn g" style="width:100%;font-size:11px;padding:6px;" onclick="islemBaslat()">▶️ Başladım</button>
+<button id="btn-bitti" class="btn o" style="width:100%;font-size:11px;padding:6px;display:none;" onclick="islemBitir()">✅ Bitirdim</button>
 <button class="btn b" style="width:100%;font-size:11px;padding:5px;" onclick="gecmisGoster()">📋 Geçmişi Gör</button>
 </div>
 </div>
@@ -205,6 +222,7 @@ let ghKullanici=localStorage.getItem("ghKullanici")||"";
 let ghToken=localStorage.getItem("ghToken")||"";
 let ghRepo=localStorage.getItem("ghRepo")||"";
 let gubreGecmisi=[];
+let aktifIslem=null;
 let karisim=[{ad:"",miktar:0,birim:"ml"},{ad:"",miktar:0,birim:"ml"},{ad:"",miktar:0,birim:"ml"}];
 
 const scroller=document.getElementById("scroller");
@@ -297,7 +315,7 @@ function updateKunye(el,i){
 function kunyeGubre(agacSayisi){
   var cont=document.getElementById('kp-gubre-rows');
   cont.innerHTML="";
-  var aktifler=karisim.filter(function(k){return k.ad&&k.miktar>0;});
+  var aktifler=islemTipi==="gubre"?karisim.filter(function(k){return k.ad&&k.miktar>0;}):[];
   if(islemTipi==='gubre'&&aktifler.length>0){
     // Her urun ayri satir
     aktifler.forEach(function(k){
@@ -338,6 +356,7 @@ function islemDegisti(){
   islemTipi=document.getElementById('islemSelect').value;
   var aktif=islemTipi==='gubre';
   document.getElementById('karisimBtn').disabled=!aktif;
+  if(!aktif) document.getElementById("kp-gubre-rows").innerHTML="";
   kunyeGuncelle();
 }
 function loadStok(e){
@@ -385,6 +404,7 @@ function stokUygula(rows){
   toast("✓ "+GUBRE_LIST.length+" gübre yüklendi");
 }
 function karisimPanelAc(){
+  if(islemTipi!=="gubre"){toast("Gübreleme modunu seçin");return;}
   var modal=document.getElementById("karisim-modal");
   modal.style.display="flex";
   karisimSatirlariCiz();
@@ -600,52 +620,127 @@ async function ghSyncYukle(){
   }catch(e){ghDurum("Hata: "+e.message,"#ff6b6b");}
 }
 // Gubre yapildi kaydi
-function gubreYapildi(){
+function islemBaslat(){
   var pinned=document.querySelector(".marker.pinned");
-  if(!pinned){toast("Once bir vana secin","r");return;}
+  if(!pinned){toast("Once bir vana secin");return;}
+  if(!ghKullanici){toast("GitHub panelinden kullanici adi girin");return;}
   var i=parseInt(pinned.dataset.i);
   var v=pos[i];
   var aktifler=karisim.filter(function(k){return k.ad&&k.miktar>0;});
-  if(!ghKullanici){toast("GitHub panelinden kullanıcı adı girin","r");return;}
-  // Stoktan dus - her urun icin toplam miktari hesapla
+  var simdi=new Date();
+  aktifIslem={
+    vanaIdx:i,
+    baslamaSaati:simdi,
+    kayit:{
+      vana:"V"+v.v, sira:v.s, agac:v.a,
+      kullanici:ghKullanici,
+      islem:islemTipi,
+      baslangic:simdi.toLocaleString("tr-TR"),
+      bitis:null, sure:null,
+      urunler:aktifler.map(function(k){
+        var sonuc=hesaplaToplamMiktar(k,v.a);
+        return {ad:k.ad,miktar:k.miktar,birim:k.birim,toplam:sonuc.deger+" "+sonuc.birim};
+      })
+    }
+  };
+  document.getElementById("btn-basladi").style.display="none";
+  document.getElementById("btn-bitti").style.display="block";
+  var islemAdi=islemTipi==="gubre"?"Gübreleme":"Sulama";
+  var urunStr=(islemTipi==="gubre"&&aktifler.length>0)?aktifler.map(function(k){return k.ad;}).join(", "):"";
+  document.getElementById("kp-aktif-islem").style.display="block";
+  document.getElementById("kp-aktif-islem").innerHTML=
+    "⏱ "+islemAdi+" başladı: "+simdi.toLocaleTimeString("tr-TR")+"<br>"
+    +"👤 "+ghKullanici
+    +(urunStr?"<br>🧪 "+urunStr:"");
+  toast("▶️ V"+v.v+" "+islemAdi+" başladı!");
+}
+function islemBitir(){
+  if(!aktifIslem){toast("Aktif islem yok");return;}
+  var simdi=new Date();
+  var sureMs=simdi-aktifIslem.baslamaSaati;
+  var sureDk=Math.floor(sureMs/60000);
+  var sureSn=Math.round((sureMs%60000)/1000);
+  var sureStr=sureDk>0?sureDk+" dk "+sureSn+" sn":sureSn+" sn";
+  aktifIslem.kayit.bitis=simdi.toLocaleString("tr-TR");
+  aktifIslem.kayit.sure=sureStr;
+  var v=pos[aktifIslem.vanaIdx];
   var stokUyari=[];
-  aktifler.forEach(function(k){
-    var g=GUBRE_LIST.find(function(x){return x.ad===k.ad;});
-    if(!g) return;
-    var b=getBirim(k.birim);
-    // Kullanilan toplam baz birimde (ml veya g)
-    var kullanilanBaz=v.a*(k.miktar||0)*b.toBase;
-    // Stok da baz birimde tutulur (ml veya g)
-    // GUBRE_LIST stok = adet * birim_hacim, biz ml/g cinsine cevirip sakliyoruz
-    var eskiStok=parseFloat(g.stok)||0;
-    var yeniStok=Math.max(0, eskiStok-kullanilanBaz);
-    g.stok=parseFloat(yeniStok.toFixed(2));
-    if(g.stok===0) stokUyari.push(k.ad+" TÜKENDİ!");
-    else if(g.stok<kullanilanBaz*2) stokUyari.push(k.ad+" KRİTİK ("+g.stok+")");
-  });
-  var kayit={
-    tarih:new Date().toLocaleString("tr-TR"),
-    kullanici:ghKullanici,
-    vana:"V"+v.v,
-    sira:v.s,
-    agac:v.a,
-    islem:islemTipi,
-    urunler:aktifler.map(function(k){
+  var aktifler=karisim.filter(function(k){return k.ad&&k.miktar>0;});
+  if(islemTipi==="gubre"&&aktifler.length>0){
+    aktifler.forEach(function(k){
+      var g=GUBRE_LIST.find(function(x){return x.ad===k.ad;});
+      if(!g) return;
+      var b=getBirim(k.birim);
+      var kullanilanBaz=v.a*(k.miktar||0)*b.toBase;
+      var yeniStok=Math.max(0,(parseFloat(g.stok)||0)-kullanilanBaz);
+      g.stok=parseFloat(yeniStok.toFixed(2));
+      if(g.stok===0) stokUyari.push(k.ad+" TÜKENDİ!");
+      else if(g.stok<kullanilanBaz*2) stokUyari.push(k.ad+" KRİTİK("+g.stok+")");
+    });
+    aktifIslem.kayit.urunler=aktifler.map(function(k){
       var sonuc=hesaplaToplamMiktar(k,v.a);
       var g=GUBRE_LIST.find(function(x){return x.ad===k.ad;});
       return {ad:k.ad,miktar:k.miktar,birim:k.birim,
               toplam:sonuc.deger+" "+sonuc.birim,
               kalanStok:g?g.stok:"-"};
-    })
-  };
-  gubreGecmisi.unshift(kayit);
-  if(gubreGecmisi.length>200) gubreGecmisi.length=200;
-  sonYapilanGoster(v.v);
-  if(stokUyari.length>0){
-    toast("⚠️ "+stokUyari.join(", "),"r");
-  } else {
-    toast("✅ V"+v.v+" kaydedildi! Stok guncellendi.");
+    });
   }
+  gubreGecmisi.unshift(aktifIslem.kayit);
+  if(gubreGecmisi.length>500) gubreGecmisi.length=500;
+  aktifIslem=null;
+  document.getElementById("btn-basladi").style.display="block";
+  document.getElementById("btn-bitti").style.display="none";
+  document.getElementById("kp-aktif-islem").style.display="none";
+  sonYapilanGoster(v.v);
+  var msg="✅ V"+v.v+" tamamlandı! Süre: "+sureStr;
+  if(stokUyari.length>0) msg+=" | ⚠️ "+stokUyari.join(", ");
+  toast(msg);
+}
+function raporGoster(){
+  var pinned=document.querySelector(".marker.pinned");
+  var vanaNo=pinned?"V"+pos[parseInt(pinned.dataset.i)].v:null;
+  var filtreli=vanaNo?gubreGecmisi.filter(function(g){return g.vana===vanaNo;}):gubreGecmisi;
+  var baslik=vanaNo?vanaNo+" - Islem Gecmisi":"Tum Adalar - Islem Gecmisi";
+  var tarih=new Date().toLocaleDateString("tr-TR");
+  var html="<div style='font-family:Arial,sans-serif;'>";
+  html+="<div style='text-align:center;border-bottom:2px solid #000;padding-bottom:12px;margin-bottom:16px;'>";
+  html+="<div style='font-size:18px;font-weight:bold;'>ERTURAN TARIM &amp; ZEYTINCILIK</div>";
+  html+="<div style='font-size:13px;color:#555;'>Seferihisar Tepecik, Izmir</div>";
+  html+="<div style='font-size:14px;font-weight:bold;margin-top:8px;'>"+baslik+"</div>";
+  html+="<div style='font-size:11px;color:#888;'>Rapor tarihi: "+tarih+"</div>";
+  html+="</div>";
+  if(filtreli.length===0){
+    html+="<p style='color:#999;text-align:center;padding:20px;'>Kayit bulunamadi</p>";
+  } else {
+    filtreli.forEach(function(g){
+      var islemAdi=g.islem==="gubre"?"Gübreleme":"Sulama";
+      html+="<div style='border:1px solid #ddd;border-radius:6px;padding:12px;margin-bottom:10px;page-break-inside:avoid;'>";
+      html+="<div style='display:flex;justify-content:space-between;margin-bottom:6px;'>";
+      html+="<strong>"+g.vana+" &mdash; "+islemAdi+"</strong>";
+      html+="<span style='color:#555;font-size:12px;'>"+g.kullanici+"</span>";
+      html+="</div>";
+      html+="<div style='font-size:12px;color:#333;line-height:1.8;'>";
+      html+="<b>Başlangıç:</b> "+g.baslangic+"<br>";
+      if(g.bitis) html+="<b>Bitiş:</b> "+g.bitis+"<br>";
+      if(g.sure) html+="<b>Süre:</b> "+g.sure+"<br>";
+      html+="<b>Sıra:</b> "+g.sira+" &nbsp; <b>Ağaç:</b> "+g.agac+"<br>";
+      if(g.urunler&&g.urunler.length>0){
+        html+="<b>Karışım:</b><br>";
+        g.urunler.forEach(function(u){
+          html+="&nbsp;&nbsp;&bull; "+u.ad+": "+u.miktar+" "+u.birim+"/ağaç &rarr; Toplam: "+u.toplam;
+          if(u.kalanStok!==undefined) html+=" (Kalan: "+u.kalanStok+")";
+          html+="<br>";
+        });
+      }
+      html+="</div></div>";
+    });
+  }
+  html+="<div style='text-align:center;font-size:10px;color:#aaa;margin-top:16px;border-top:1px solid #eee;padding-top:8px;'>";
+  html+="Erturan Tarim Vana Sistemi &mdash; "+tarih;
+  html+="</div></div>";
+  document.getElementById("rapor-icerik").innerHTML=html;
+  document.getElementById("gecmis-modal").style.display="none";
+  document.getElementById("rapor-modal").style.display="flex";
 }
 // Stok durumu goster - kunye gecmis satirinda
 function stokDurumStr(g){
@@ -659,7 +754,10 @@ function sonYapilanGoster(vanaNo){
   var el=document.getElementById("kp-son-yapilan");
   if(ilgili.length>0){
     var son=ilgili[0];
-    el.textContent="🕐 Son: "+son.tarih+" ("+son.kullanici+")";
+    var islemAdi=son.islem==="gubre"?"Gübreleme":"Sulama";
+    var html="🕐 Son "+islemAdi+":<br>"+son.baslangic+"<br>👤 "+son.kullanici;
+    if(son.sure) html+=" &bull; ⏱ "+son.sure;
+    el.innerHTML=html;
   } else {
     el.textContent="Henüz kayıt yok";
   }
@@ -676,15 +774,17 @@ function gecmisGoster(){
     filtreli.forEach(function(g){
       var div=document.createElement("div");
       div.className="gecmis-kayit";
+      var islemAdi=g.islem==="gubre"?"Gübreleme":"Sulama";
       var urunStr=g.urunler&&g.urunler.length>0
         ?g.urunler.map(function(u){
-            var kalan=u.kalanStok!==undefined?" → Kalan:"+u.kalanStok:"";
+            var kalan=u.kalanStok!==undefined?" (Kalan:"+u.kalanStok+")":"";
             return u.ad+": "+u.toplam+kalan;
           }).join("<br>")
-        :"Sadece sulama";
-      div.innerHTML='<div class="gk-baslik">'+g.vana+' &mdash; '+g.kullanici+'</div>'
+        :"Sulama";
+      var sureStr=g.sure?" &bull; ⏱ "+g.sure:"";
+      div.innerHTML='<div class="gk-baslik">'+g.vana+' &mdash; '+islemAdi+' &mdash; '+g.kullanici+'</div>'
         +'<div class="gk-detay">'+urunStr+'</div>'
-        +'<div class="gk-tarih">🕐 '+g.tarih+'</div>';
+        +'<div class="gk-tarih">🕐 '+g.baslangic+(g.bitis?' → '+g.bitis:'')+sureStr+'</div>';
       liste.appendChild(div);
     });
   }
