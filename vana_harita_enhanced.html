@@ -85,28 +85,31 @@ body{font-family:Arial,sans-serif;background:#1a1a2e;color:#fff;overflow:hidden;
 
 </style>
 </head>
-<body><!-- GitHub Sync Panel -->
+<body>
+<div id="giris-ekrani" style="position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(ellipse at 20% 20%,#0a1628,#050d1a);z-index:999999;display:flex;align-items:center;justify-content:center;"><div style="background:linear-gradient(135deg,rgba(0,20,50,0.95),rgba(0,40,80,0.9));border:1px solid rgba(0,191,255,0.35);border-radius:20px;padding:32px 28px;width:320px;max-width:92vw;box-shadow:0 16px 48px rgba(0,0,0,0.8);text-align:center;"><div style="font-size:12px;letter-spacing:3px;color:rgba(0,191,255,0.5);margin-bottom:6px;">🌿 ERTURAN TARIM</div><div style="font-size:22px;font-weight:900;color:#fff;margin-bottom:4px;">Vana Sistemi</div><div style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:24px;">Seferihisar Tepecik</div><div style="text-align:left;margin-bottom:12px;"><label style="font-size:10px;letter-spacing:2px;color:rgba(0,191,255,0.6);">AD SOYAD / NICK</label><input id="giris-nick" placeholder="Adınız..." maxlength="30" style="width:100%;margin-top:6px;background:rgba(0,191,255,0.08);color:#fff;border:1px solid rgba(0,191,255,0.3);border-radius:8px;padding:10px;font-size:14px;outline:none;box-sizing:border-box;"></div><div id="giris-pin-alan" style="text-align:left;margin-bottom:16px;display:none;"><label style="font-size:10px;letter-spacing:2px;color:rgba(255,165,0,0.7);">YÖNETİCİ PIN</label><input id="giris-pin" type="password" placeholder="4 haneli PIN" maxlength="4" style="width:100%;margin-top:6px;background:rgba(255,165,0,0.08);color:#fff;border:1px solid rgba(255,165,0,0.3);border-radius:8px;padding:10px;font-size:14px;outline:none;box-sizing:border-box;"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;"><button onclick="girisYap('saha')" style="background:linear-gradient(135deg,#0d2a45,#1a3a6b);color:#7fbfff;border:1px solid rgba(0,191,255,0.4);border-radius:8px;padding:10px;font-size:12px;cursor:pointer;">👷 Saha Çalışanı</button><button onclick="girisPin()" style="background:linear-gradient(135deg,#2a1a0d,#6b3a1a);color:#ffcc7f;border:1px solid rgba(255,165,0,0.4);border-radius:8px;padding:10px;font-size:12px;cursor:pointer;">🔑 Yönetici</button></div><div id="giris-hata" style="font-size:11px;color:#ff6b6b;min-height:16px;"></div></div></div>
+<!-- GitHub Sync Panel -->
 <div id="gh-panel" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:99998;align-items:center;justify-content:center;">
-<div style="background:linear-gradient(135deg,#0a1628,#0d2a45);border:1px solid rgba(0,191,255,0.4);border-radius:16px;padding:24px;width:360px;max-width:95vw;box-shadow:0 16px 48px rgba(0,0,0,0.8);">
+<div style="background:linear-gradient(135deg,#0a1628,#0d2a45);border:1px solid rgba(0,191,255,0.4);border-radius:16px;padding:24px;width:380px;max-width:95vw;box-shadow:0 16px 48px rgba(0,0,0,0.8);">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-<span style="color:#00BFFF;font-weight:900;font-size:15px;">🔗 GITHUB SYNC</span>
+<span style="color:#00BFFF;font-weight:900;font-size:15px;">🛡️ SUPABASE SYNC</span>
 <button onclick="ghPanelKapat()" style="background:none;border:none;color:#fff;font-size:20px;cursor:pointer;">&times;</button>
 </div>
 <div style="margin-bottom:10px;">
 <label style="color:rgba(0,191,255,0.7);font-size:10px;letter-spacing:1px;">KULLANICI ADI</label>
-<input id="gh-kullanici" placeholder="Adınız (zorunlu)" style="width:100%;margin-top:4px;background:#0d2a45;color:#fff;border:1px solid rgba(0,191,255,0.4);border-radius:6px;padding:8px;font-size:13px;">
+<input id="gh-kullanici" placeholder="Adınız" style="width:100%;margin-top:4px;background:#0d2a45;color:#fff;border:1px solid rgba(0,191,255,0.4);border-radius:6px;padding:8px;font-size:13px;">
 </div>
 <div style="margin-bottom:10px;">
-<label style="color:rgba(0,191,255,0.7);font-size:10px;letter-spacing:1px;">GITHUB TOKEN</label>
-<input id="gh-token" type="password" placeholder="ghp_xxxx..." style="width:100%;margin-top:4px;background:#0d2a45;color:#fff;border:1px solid rgba(0,191,255,0.4);border-radius:6px;padding:8px;font-size:13px;">
+<label style="color:rgba(0,191,255,0.7);font-size:10px;letter-spacing:1px;">SUPABASE URL</label>
+<input id="sb-url" value="https://lkdztpxuwgiposwqptly.supabase.co" placeholder="https://xxxx.supabase.co" style="width:100%;margin-top:4px;background:#0d2a45;color:#fff;border:1px solid rgba(0,191,255,0.4);border-radius:6px;padding:8px;font-size:13px;">
 </div>
 <div style="margin-bottom:10px;">
-<label style="color:rgba(0,191,255,0.7);font-size:10px;letter-spacing:1px;">REPO (kullanici/repo)</label>
-<input id="gh-repo" placeholder="kullanici/erturan-tarim" style="width:100%;margin-top:4px;background:#0d2a45;color:#fff;border:1px solid rgba(0,191,255,0.4);border-radius:6px;padding:8px;font-size:13px;">
+<label style="color:rgba(0,191,255,0.7);font-size:10px;letter-spacing:1px;">ANON KEY</label>
+<input id="sb-key" type="password" value="sb_publishable_PVqZZNfDaQG4POvuXaJXGA_qCcckMCg" placeholder="eyJhbGci..." style="width:100%;margin-top:4px;background:#0d2a45;color:#fff;border:1px solid rgba(0,191,255,0.4);border-radius:6px;padding:8px;font-size:13px;">
 </div>
-<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">
-<button class="btn g" style="flex:1" onclick="ghSyncYukle()">⬇️ Yükle</button>
-<button class="btn b" style="flex:1" onclick="ghSyncKaydet()">⬆️ Kaydet</button>
+<div style="margin-bottom:6px;font-size:10px;color:rgba(255,255,255,0.35);line-height:1.5;">Supabase.com → Projeniz → Settings → API &nbsp;|&nbsp; URL ve anon public key'i kopyalayın</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;">
+<button class="btn g" style="flex:1" onclick="sbYukle()">⬇️ Yükle</button>
+<button class="btn b" style="flex:1" onclick="sbKaydet()">⬆️ Kaydet</button>
 <button class="btn r" style="flex:1" onclick="ghPanelKapat()">Kapat</button>
 </div>
 <div id="gh-durum" style="margin-top:12px;font-size:11px;color:rgba(255,255,255,0.5);min-height:16px;"></div>
@@ -152,7 +155,8 @@ body{font-family:Arial,sans-serif;background:#1a1a2e;color:#fff;overflow:hidden;
   <button class="btn g" onclick="saveJSON()">💾 Kaydet</button>
   <button class="btn b" onclick="document.getElementById('fileInput').click()">📂 Yükle</button>
   <button class="btn s" onclick="document.getElementById('stokInput').click()">🌿 Stok Yükle</button>
-  <button class="btn gh" onclick="ghPanelAc()">🔗 GitHub Sync</button>
+  <button class="btn gh" onclick="ghPanelAc()">🛡️ Sync</button>
+  <button onclick="cikisYap()" style="background:rgba(255,80,80,0.15);color:#ff8888;border:1px solid rgba(255,80,80,0.3);border-radius:6px;padding:3px 10px;font-size:11px;cursor:pointer;">🚪 Çıkış</button>
   <input type="file" id="stokInput" accept=".json,.xlsx,.xls,.csv" style="display:none" onchange="loadStok(event)">
   <button class="btn o" id="dlBtn" onclick="downloadMap()">⬇ PNG</button>
   <button class="btn r" onclick="doReset()">↺ Sıfırla</button>
@@ -223,8 +227,12 @@ const GUBRE_LIST=[
 ];
 let islemTipi="sulama";
 let ghKullanici=localStorage.getItem("ghKullanici")||"";
-let ghToken=localStorage.getItem("ghToken")||"";
-let ghRepo=localStorage.getItem("ghRepo")||"";
+let aktifKullanici="";
+let aktifRol="saha";
+var YONETICI_NICK="ovacirak@gmail.com";
+var YONETICI_PIN="1234";
+let sbUrl=localStorage.getItem("sbUrl")||"https://lkdztpxuwgiposwqptly.supabase.co";
+let sbKey=localStorage.getItem("sbKey")||"sb_publishable_PVqZZNfDaQG4POvuXaJXGA_qCcckMCg";
 let gubreGecmisi=[];
 let aktifIslem=null;
 let karisim=[{ad:"",miktar:0,birim:"ml"},{ad:"",miktar:0,birim:"ml"},{ad:"",miktar:0,birim:"ml"}];
@@ -528,118 +536,235 @@ function karisimKaydet(){
   karisimPanelKapat();
   kunyeGuncelle();
 }
-// GitHub Sync Fonksiyonlari
+// Supabase Sync Fonksiyonlari
+function sbHeaders(){
+  return {"Content-Type":"application/json","apikey":sbKey,"Authorization":"Bearer "+sbKey};
+}
+async function sbGet(tablo, filtre){
+  var url=sbUrl+"/rest/v1/"+tablo+(filtre?"?"+filtre:"?select=*");
+  var r=await fetch(url,{headers:sbHeaders()});
+  if(!r.ok) throw new Error(await r.text());
+  return await r.json();
+}
+async function sbUpsert(tablo, data, onConflict){
+  var url=sbUrl+"/rest/v1/"+tablo;
+  var prefer="resolution=merge-duplicates"+(onConflict?",return=minimal":"");
+  var r=await fetch(url,{
+    method:"POST",
+    headers:Object.assign({},sbHeaders(),{
+      "Prefer":prefer,
+      "x-upsert":"true"
+    }),
+    body:JSON.stringify(data)
+  });
+  if(!r.ok) throw new Error(await r.text());
+  return r;
+}
+async function sbInsert(tablo, data){
+  var url=sbUrl+"/rest/v1/"+tablo;
+  var r=await fetch(url,{
+    method:"POST",
+    headers:Object.assign({},sbHeaders(),{"Prefer":"return=minimal"}),
+    body:JSON.stringify(data)
+  });
+  if(!r.ok) throw new Error(await r.text());
+  return r;
+}
+async function sbUpdate(tablo, data, filtre){
+  var url=sbUrl+"/rest/v1/"+tablo+"?"+filtre;
+  var r=await fetch(url,{
+    method:"PATCH",
+    headers:Object.assign({},sbHeaders(),{"Prefer":"return=minimal"}),
+    body:JSON.stringify(data)
+  });
+  if(!r.ok) throw new Error(await r.text());
+  return r;
+}
+
 function ghPanelAc(){
+  if(aktifRol!=="yonetici"){toast("Sadece yönetici erişebilir");return;}
   document.getElementById("gh-panel").style.display="flex";
   document.getElementById("gh-kullanici").value=ghKullanici;
-  document.getElementById("gh-token").value=ghToken;
-  document.getElementById("gh-repo").value=ghRepo;
+  document.getElementById("sb-url").value=sbUrl;
+  document.getElementById("sb-key").value=sbKey;
 }
 function ghPanelKapat(){
   document.getElementById("gh-panel").style.display="none";
 }
 function ghAyarlariKaydet(){
   ghKullanici=document.getElementById("gh-kullanici").value.trim();
-  ghToken=document.getElementById("gh-token").value.trim();
-  ghRepo=document.getElementById("gh-repo").value.trim();
-  localStorage.setItem("ghKullanici",ghKullanici);
-  localStorage.setItem("ghToken",ghToken);
-  localStorage.setItem("ghRepo",ghRepo);
+  sbUrl=document.getElementById("sb-url").value.trim().replace(/\/$/,"");
+  sbKey=document.getElementById("sb-key").value.trim();
+  if(ghKullanici) localStorage.setItem("ghKullanici",ghKullanici);
+  if(sbUrl) localStorage.setItem("sbUrl",sbUrl);
+  if(sbKey) localStorage.setItem("sbKey",sbKey);
 }
 function ghDurum(msg,renk){
   var el=document.getElementById("gh-durum");
   el.textContent=msg;
   el.style.color=renk||"rgba(255,255,255,0.5)";
 }
-async function ghDosyaOku(dosya){
-  var url="https://api.github.com/repos/"+ghRepo+"/contents/"+dosya;
-  var r=await fetch(url,{headers:{"Authorization":"token "+ghToken,"Accept":"application/vnd.github.v3+json"}});
-  if(!r.ok) return null;
-  var j=await r.json();
-  return {icerik:JSON.parse(atob(j.content.replace(/\n/g,""))),sha:j.sha};
-}
-async function ghDosyaYaz(dosya,icerik,sha){
-  var url="https://api.github.com/repos/"+ghRepo+"/contents/"+dosya;
-  var body={message:"Guncellendi: "+dosya,content:btoa(unescape(encodeURIComponent(JSON.stringify(icerik,null,2))))};
-  if(sha) body.sha=sha;
-  var r=await fetch(url,{method:"PUT",headers:{"Authorization":"token "+ghToken,"Accept":"application/vnd.github.v3+json","Content-Type":"application/json"},body:JSON.stringify(body)});
-  return r.ok;
-}
-async function ghSyncKaydet(){
+
+// ADA bilgisi - her ada kendi kaydini gunceller
+var ADA_ID="ada1";
+
+async function sbKaydet(){
   ghAyarlariKaydet();
-  if(!ghToken||!ghRepo){ghDurum("Token ve repo zorunlu!","#ff6b6b");return;}
+  if(!sbUrl||!sbKey){ghDurum("URL ve Key zorunlu!","#ff6b6b");return;}
   ghDurum("Kaydediliyor...");
   try{
     // 1. Vana konumlari
-    var vanaSha=null;
-    var vanaOku=await ghDosyaOku("vana_kayit.json");
-    if(vanaOku) vanaSha=vanaOku.sha;
-    var vanaData={pos,gScale,gFont,gColor,islemTipi,karisim};
-    await ghDosyaYaz("vana_kayit.json",vanaData,vanaSha);
-    // 2. Gubre stok
-    var stokSha=null;
-    var stokOku=await ghDosyaOku("gubre_stok.json");
-    if(stokOku) stokSha=stokOku.sha;
-    await ghDosyaYaz("gubre_stok.json",GUBRE_LIST,stokSha);
-    // 3. Gubre gecmisi
-    var gecSha=null;
-    var gecOku=await ghDosyaOku("gubre_gecmisi.json");
-    if(gecOku) gecSha=gecOku.sha;
-    await ghDosyaYaz("gubre_gecmisi.json",gubreGecmisi,gecSha);
-    ghDurum("✓ GitHub'a kaydedildi!","#7fff7f");
-    toast("✓ GitHub'a kaydedildi!");
+    var vanaData={ada:ADA_ID,pos:pos,g_scale:gScale,g_font:gFont,g_color:gColor,updated_at:new Date().toISOString()};
+    var vanaUpR=await fetch(sbUrl+"/rest/v1/vana_konumlari?ada=eq."+ADA_ID,{
+      method:"PATCH",
+      headers:Object.assign({},sbHeaders(),{"Prefer":"return=minimal"}),
+      body:JSON.stringify(vanaData)
+    });
+    if(vanaUpR.ok){
+      var vc=vanaUpR.headers.get("content-range");
+      if(vc==="*/0") await sbInsert("vana_konumlari",vanaData);
+    }
+    // 2. Gubre stok (tum adalarda ortak)
+    // Stok guncelle: once update, basarisizsa insert
+    for(var i=0;i<GUBRE_LIST.length;i++){
+      var g=GUBRE_LIST[i];
+      var now=new Date().toISOString();
+      // Once update dene
+      var upUrl=sbUrl+"/rest/v1/gubre_stok?ad=eq."+encodeURIComponent(g.ad);
+      var upR=await fetch(upUrl,{
+        method:"PATCH",
+        headers:Object.assign({},sbHeaders(),{"Prefer":"return=minimal"}),
+        body:JSON.stringify({stok:g.stok||0,updated_at:now})
+      });
+      if(upR.ok){
+        // Kac satir etkilendi kontrol et
+        var cnt=upR.headers.get("content-range");
+        if(cnt==="*/0"){
+          // Kayit yok, insert yap
+          await sbInsert("gubre_stok",{ad:g.ad,stok:g.stok||0,updated_at:now});
+        }
+      }
+    }
+    // 3. Karisim
+    var karRows2=await sbGet("karisim");
+    if(karRows2.length>0){
+      await sbUpdate("karisim",{islem_tipi:islemTipi,urunler:karisim,updated_at:new Date().toISOString()},"id=eq."+karRows2[0].id);
+    } else {
+      await sbInsert("karisim",{islem_tipi:islemTipi,urunler:karisim});
+    }
+    ghDurum("✓ Kaydedildi!","#7fff7f");
+    toast("✓ Supabase'e kaydedildi!");
   }catch(e){ghDurum("Hata: "+e.message,"#ff6b6b");}
 }
-async function ghSyncYukle(){
+async function sbYukle(){
   ghAyarlariKaydet();
-  if(!ghToken||!ghRepo){ghDurum("Token ve repo zorunlu!","#ff6b6b");return;}
+  if(!sbUrl||!sbKey){ghDurum("URL ve Key zorunlu!","#ff6b6b");return;}
   ghDurum("Yükleniyor...");
   try{
     // 1. Vana konumlari
-    var vana=await ghDosyaOku("vana_kayit.json");
-    if(vana&&vana.icerik){
-      var d=vana.icerik;
+    var vanaRows=await sbGet("vana_konumlari","ada=eq."+ADA_ID);
+    if(vanaRows.length>0){
+      var d=vanaRows[0];
       if(d.pos) pos=d.pos;
-      if(d.gScale) gScale=d.gScale;
-      if(d.gFont) gFont=d.gFont;
-      if(d.gColor) gColor=d.gColor;
-      if(d.islemTipi) islemTipi=d.islemTipi;
-      if(d.karisim) karisim=d.karisim;
+      if(d.g_scale) gScale=d.g_scale;
+      if(d.g_font) gFont=d.g_font;
+      if(d.g_color) gColor=d.g_color;
       applyControls();render();
+    }
+    // 2. Gubre stok
+    var stokRows=await sbGet("gubre_stok");
+    if(stokRows.length>0){
+      GUBRE_LIST.length=0;
+      stokRows.forEach(function(g){GUBRE_LIST.push({ad:g.ad,stok:g.stok,durum:g.durum});});
+      gubreListesiDoldur();
+    }
+    // 3. Karisim
+    var karRows=await sbGet("karisim");
+    if(karRows.length>0){
+      islemTipi=karRows[0].islem_tipi||"sulama";
+      karisim=karRows[0].urunler||[];
       document.getElementById("islemSelect").value=islemTipi;
       islemDegisti();
     }
-    // 2. Gubre stok
-    var stok=await ghDosyaOku("gubre_stok.json");
-    if(stok&&Array.isArray(stok.icerik)){
-      GUBRE_LIST.length=0;
-      stok.icerik.forEach(function(g){GUBRE_LIST.push(g);});
-      gubreListesiDoldur();
-    }
-    // 3. Gubre gecmisi
-    var gec=await ghDosyaOku("gubre_gecmisi.json");
-    if(gec&&Array.isArray(gec.icerik)) gubreGecmisi=gec.icerik;
-    ghDurum("✓ Yüklendi!","#7fff7f");
-    toast("✓ GitHub'dan yüklendi!");
+    // 4. Gecmis
+    var gecRows=await sbGet("islem_gecmisi","ada=eq."+ADA_ID+"&order=baslangic.desc&limit=200");
+    gubreGecmisi=gecRows.map(function(r){
+      return {
+        id:r.id, vana:r.vana, sira:r.sira, agac:r.agac,
+        kullanici:r.kullanici, islem:r.islem_tipi,
+        baslangic:r.baslangic?new Date(r.baslangic).toLocaleString("tr-TR"):"",
+        bitis:r.bitis?new Date(r.bitis).toLocaleString("tr-TR"):null,
+        sure:r.sure_sn?Math.floor(r.sure_sn/60)+" dk "+r.sure_sn%60+" sn":null,
+        urunler:r.urunler||[]
+      };
+    });
+    ghDurum("✓ Yüklendi! ("+gubreGecmisi.length+" kayıt)","#7fff7f");
+    toast("✓ Supabase'den yüklendi!");
   }catch(e){ghDurum("Hata: "+e.message,"#ff6b6b");}
+}
+async function sbIslemKaydet(kayit){
+  if(!sbUrl||!sbKey) return; // Supabase ayarsiz sessizce gec
+  try{
+    var sureSn=kayit.sure?parseInt(kayit.sure):null;
+    var row={
+      ada:ADA_ID,
+      vana:kayit.vana,
+      sira:kayit.sira,
+      agac:kayit.agac,
+      kullanici:kayit.kullanici,
+      islem_tipi:kayit.islem,
+      baslangic:kayit.baslangicISO,
+      urunler:kayit.urunler||[]
+    };
+    if(kayit.bitisISO) row.bitis=kayit.bitisISO;
+    if(kayit.sureSn) row.sure_sn=kayit.sureSn;
+    await sbInsert("islem_gecmisi",row);
+  }catch(e){console.warn("Supabase kayit hatasi:",e.message);}
+}
+async function sbStokGuncelle(){
+  if(!sbUrl||!sbKey) return;
+  try{
+    // Stok guncelle: once update, basarisizsa insert
+    for(var i=0;i<GUBRE_LIST.length;i++){
+      var g=GUBRE_LIST[i];
+      var now=new Date().toISOString();
+      // Once update dene
+      var upUrl=sbUrl+"/rest/v1/gubre_stok?ad=eq."+encodeURIComponent(g.ad);
+      var upR=await fetch(upUrl,{
+        method:"PATCH",
+        headers:Object.assign({},sbHeaders(),{"Prefer":"return=minimal"}),
+        body:JSON.stringify({stok:g.stok||0,updated_at:now})
+      });
+      if(upR.ok){
+        // Kac satir etkilendi kontrol et
+        var cnt=upR.headers.get("content-range");
+        if(cnt==="*/0"){
+          // Kayit yok, insert yap
+          await sbInsert("gubre_stok",{ad:g.ad,stok:g.stok||0,updated_at:now});
+        }
+      }
+    }
+  }catch(e){console.warn("Stok guncelleme hatasi:",e.message);}
 }
 // Gubre yapildi kaydi
 function islemBaslat(){
   var pinned=document.querySelector(".marker.pinned");
   if(!pinned){toast("Once bir vana secin");return;}
-  if(!ghKullanici){toast("GitHub panelinden kullanici adi girin");return;}
+  if(!aktifKullanici){toast("Lütfen giriş yapın");return;}
   var i=parseInt(pinned.dataset.i);
   var v=pos[i];
   var aktifler=karisim.filter(function(k){return k.ad&&k.miktar>0;});
   var simdi=new Date();
+  var baslaISO=simdi.toISOString();
   aktifIslem={
     vanaIdx:i,
     baslamaSaati:simdi,
     kayit:{
       vana:"V"+v.v, sira:v.s, agac:v.a,
-      kullanici:ghKullanici,
+      kullanici:aktifKullanici,
       islem:islemTipi,
       baslangic:simdi.toLocaleString("tr-TR"),
+      baslangicISO:baslaISO,
       bitis:null, sure:null,
       urunler:aktifler.map(function(k){
         var sonuc=hesaplaToplamMiktar(k,v.a);
@@ -647,6 +772,7 @@ function islemBaslat(){
       })
     }
   };
+  localStorage.setItem("aktifIslem",JSON.stringify({vanaIdx:i,baslaISO:aktifIslem.baslamaSaati.toISOString(),kayit:aktifIslem.kayit}));
   document.getElementById("btn-basladi").style.display="none";
   document.getElementById("btn-bitti").style.display="block";
   var islemAdi=islemTipi==="gubre"?"Gübreleme":"Sulama";
@@ -689,9 +815,11 @@ function islemBitir(){
               kalanStok:g?g.stok:"-"};
     });
   }
+  aktifIslem.kayit.id=Date.now()+"-"+ghKullanici;
   gubreGecmisi.unshift(aktifIslem.kayit);
   if(gubreGecmisi.length>500) gubreGecmisi.length=500;
   aktifIslem=null;
+  localStorage.removeItem("aktifIslem");
   document.getElementById("btn-basladi").style.display="block";
   document.getElementById("btn-bitti").style.display="none";
   document.getElementById("kp-aktif-islem").style.display="none";
@@ -699,6 +827,14 @@ function islemBitir(){
   var msg="✅ V"+v.v+" tamamlandı! Süre: "+sureStr;
   if(stokUyari.length>0) msg+=" | ⚠️ "+stokUyari.join(", ");
   toast(msg);
+  // Supabase'e otomatik kaydet
+  sbIslemKaydet(Object.assign({},gubreGecmisi[0],{
+    baslamaSaati:undefined,
+    baslangicISO:aktifIslem?aktifIslem.baslamaSaati.toISOString():new Date().toISOString(),
+    bitisISO:simdi.toISOString(),
+    sureSn:Math.round(sureMs/1000)
+  }));
+  sbStokGuncelle();
 }
 function raporGoster(){
   var pinned=document.querySelector(".marker.pinned");
@@ -793,6 +929,91 @@ function gecmisGoster(){
     });
   }
   document.getElementById("gecmis-modal").style.display="flex";
+}
+function girisYap(rol){
+  var nick=document.getElementById("giris-nick").value.trim();
+  if(!nick){document.getElementById("giris-hata").textContent="Adınızı girin!";return;}
+  if(rol==="yonetici"){
+    var pin=document.getElementById("giris-pin").value.trim();
+    if(nick!==YONETICI_NICK||pin!==YONETICI_PIN){
+      document.getElementById("giris-hata").textContent="Ad veya PIN yanlış!";
+      return;
+    }
+  }
+  aktifKullanici=nick;
+  aktifRol=rol;
+  ghKullanici=nick;
+  localStorage.setItem("ghKullanici",nick);
+  localStorage.setItem("aktifRol",rol);
+  document.getElementById("giris-ekrani").style.display="none";
+  rolUygula();
+  aktifIslemiGeriYukle();
+  if(sbUrl&&sbKey) sbYukle();
+  toast("👋 Hoşgeldin "+nick+(rol==="yonetici"?" (Yönetici)":"")+"!");
+}
+function girisPin(){
+  var alan=document.getElementById("giris-pin-alan");
+  if(alan.style.display==="none"){alan.style.display="block";document.getElementById("giris-pin").focus();}
+  else girisYap("yonetici");
+}
+function rolUygula(){
+  var y=aktifRol==="yonetici";
+  var kBtn=document.getElementById("karisimBtn");
+  if(kBtn) kBtn.style.display=y?"":"none";
+  var iSel=document.getElementById("islemSelect");
+  if(iSel) iSel.disabled=!y;
+  var ghBtn=document.querySelector(".btn.gh");
+  if(ghBtn) ghBtn.style.display=y?"":"none";
+  var sBtn=document.querySelector(".btn.s");
+  if(sBtn) sBtn.style.display=y?"":"none";
+  // Topbarda kullanici goster
+  var adEl=document.getElementById("kullanici-ad");
+  if(!adEl){
+    adEl=document.createElement("span");
+    adEl.id="kullanici-ad";
+    adEl.style.cssText="font-size:11px;color:rgba(0,191,255,0.7);margin-left:6px;font-family:Arial;";
+    var h1=document.querySelector("#topbar h1");
+    if(h1) h1.insertAdjacentElement("afterend",adEl);
+  }
+  adEl.textContent=(y?"🔑":"👷")+" "+aktifKullanici;
+}
+function cikisYap(){
+  if(aktifIslem){toast("⚠️ Once aktif islemi bitirin!");return;}
+  aktifKullanici="";aktifRol="saha";
+  localStorage.removeItem("aktifRol");
+  document.getElementById("giris-ekrani").style.display="flex";
+  document.getElementById("giris-nick").value="";
+  document.getElementById("giris-pin").value="";
+  document.getElementById("giris-pin-alan").style.display="none";
+  document.getElementById("giris-hata").textContent="";
+}
+function aktifIslemiGeriYukle(){
+  var stored=localStorage.getItem("aktifIslem");
+  if(!stored) return;
+  try{
+    var d=JSON.parse(stored);
+    if(d.kayit.kullanici!==aktifKullanici){localStorage.removeItem("aktifIslem");return;}
+    aktifIslem={vanaIdx:d.vanaIdx,baslamaSaati:new Date(d.baslaISO),kayit:d.kayit};
+    setTimeout(function(){
+      var markers=document.querySelectorAll(".marker");
+      markers.forEach(function(el){
+        if(parseInt(el.dataset.i)===d.vanaIdx){
+          el.classList.add("pinned");
+          updateKunye(el,d.vanaIdx);
+        }
+      });
+      document.getElementById("btn-basladi").style.display="none";
+      document.getElementById("btn-bitti").style.display="block";
+      var islemAdi=d.kayit.islem==="gubre"?"Gübreleme":"Sulama";
+      var sureDk=Math.floor((Date.now()-aktifIslem.baslamaSaati)/60000);
+      document.getElementById("kp-aktif-islem").style.display="block";
+      document.getElementById("kp-aktif-islem").innerHTML=
+        "⏱ "+islemAdi+" devam ediyor ("+sureDk+" dk)<br>"
+        +"👤 "+d.kayit.kullanici+"<br>"
+        +"🕐 "+d.kayit.baslangic;
+      toast("⚠️ "+d.kayit.vana+" islemi devam ediyor!");
+    },500);
+  }catch(e){localStorage.removeItem("aktifIslem");}
 }
 function gubreListesiDoldur(){
   // GUBRE_LIST guncellendi, karisim paneli acilinca otomatik yuklenir
@@ -901,7 +1122,24 @@ function downloadMap(){
 
 function toast(msg,cls){const t=document.getElementById("toast");t.textContent=msg;t.className=cls;t.style.display="block";setTimeout(()=>t.style.display="none",3000);}
 
-img.addEventListener("load",()=>{gubreListesiDoldur();zoomFit();applyControls();render();});
+img.addEventListener("load",()=>{
+  gubreListesiDoldur();
+  document.getElementById("giris-nick").addEventListener("keydown",function(e){if(e.key==="Enter")girisYap("saha");});
+  document.getElementById("giris-pin").addEventListener("keydown",function(e){if(e.key==="Enter")girisYap("yonetici");});
+  zoomFit();applyControls();render();
+  var kayitliNick=localStorage.getItem("ghKullanici");
+  var kayitliRol=localStorage.getItem("aktifRol")||"saha";
+  if(kayitliNick){
+    if(kayitliRol==="yonetici"&&kayitliNick!==YONETICI_NICK) kayitliRol="saha";
+    aktifKullanici=kayitliNick;
+    aktifRol=kayitliRol;
+    ghKullanici=kayitliNick;
+    document.getElementById("giris-ekrani").style.display="none";
+    rolUygula();
+    aktifIslemiGeriYukle();
+    if(sbUrl&&sbKey) sbYukle();
+  }
+});
 if(img.complete){zoomFit();applyControls();render();}
 window.addEventListener("resize",()=>{zoomFit();});
 </script>
