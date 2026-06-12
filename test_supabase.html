@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Supabase Test</title></head>
+<body style="font-family:monospace;background:#0a1628;color:#0f0;padding:20px;">
+<h2 style="color:#0bf">Supabase Bağlantı Testi</h2>
+<button onclick="test()" style="padding:10px 20px;font-size:14px;">TEST ET</button>
+<pre id="out" style="margin-top:20px;white-space:pre-wrap;"></pre>
+<script>
+var sbUrl="https://lkdztpxuwgiposwqptly.supabase.co";
+var sbKey="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxrZHp0cHh1d2dpcG9zd3FwdGx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA5NDEyMzEsImV4cCI6MjA5NjUxNzIzMX0.y9B5ZatYNIri1wBoZc6Fywr2EwtJHtjAlspYYkbJhVs";
+
+async function test(){
+  var out=document.getElementById('out');
+  out.textContent="Bağlanıyor...\n";
+  try{
+    var url=sbUrl+"/rest/v1/gubre_stok?select=*&limit=5";
+    out.textContent+="URL: "+url+"\n\n";
+    var r=await fetch(url,{
+      headers:{
+        "apikey":sbKey,
+        "Authorization":"Bearer "+sbKey
+      }
+    });
+    out.textContent+="HTTP Status: "+r.status+"\n";
+    var text=await r.text();
+    out.textContent+="Response:\n"+text;
+  }catch(e){
+    out.textContent+="HATA: "+e.message+"\n\nStack: "+e.stack;
+  }
+}
+</script>
+</body></html>
