@@ -104,7 +104,7 @@ body{font-family:Arial,sans-serif;background:#1a1a2e;color:#fff;overflow:hidden;
 </div>
 <div style="margin-bottom:10px;">
 <label style="color:rgba(0,191,255,0.7);font-size:10px;letter-spacing:1px;">ANON KEY</label>
-<input id="sb-key" type="password" value="sb_publishable_PVqZZNfDaQG4POvuXaJXGA_qCcckMCg" placeholder="eyJhbGci..." style="width:100%;margin-top:4px;background:#0d2a45;color:#fff;border:1px solid rgba(0,191,255,0.4);border-radius:6px;padding:8px;font-size:13px;">
+<input id="sb-key" type="password" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxrZHp0cHh1d2dpcG9zd3FwdGx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA5NDEyMzEsImV4cCI6MjA5NjUxNzIzMX0.y9B5ZatYNIri1wBoZc6Fywr2EwtJHtjAlspYYkbJhVs" placeholder="eyJhbGci..." style="width:100%;margin-top:4px;background:#0d2a45;color:#fff;border:1px solid rgba(0,191,255,0.4);border-radius:6px;padding:8px;font-size:13px;">
 </div>
 <div style="margin-bottom:6px;font-size:10px;color:rgba(255,255,255,0.35);line-height:1.5;">Supabase.com → Projeniz → Settings → API &nbsp;|&nbsp; URL ve anon public key'i kopyalayın</div>
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;">
@@ -227,7 +227,14 @@ let aktifRol="saha";
 var YONETICI_NICK="ovacirak@gmail.com";
 var YONETICI_PIN="1234";
 let sbUrl=localStorage.getItem("sbUrl")||"https://lkdztpxuwgiposwqptly.supabase.co";
-let sbKey=localStorage.getItem("sbKey")||"sb_publishable_PVqZZNfDaQG4POvuXaJXGA_qCcckMCg";
+let sbKey=localStorage.getItem("sbKey")||"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxrZHp0cHh1d2dpcG9zd3FwdGx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA5NDEyMzEsImV4cCI6MjA5NjUxNzIzMX0.y9B5ZatYNIri1wBoZc6Fywr2EwtJHtjAlspYYkbJhVs";
+// Eski/yanlis key formatini temizle
+if(sbKey.indexOf("sb_publishable")===0||sbKey.indexOf("sb_secret")===0){
+  localStorage.removeItem("sbKey");
+  localStorage.removeItem("sbUrl");
+  sbKey="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxrZHp0cHh1d2dpcG9zd3FwdGx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA5NDEyMzEsImV4cCI6MjA5NjUxNzIzMX0.y9B5ZatYNIri1wBoZc6Fywr2EwtJHtjAlspYYkbJhVs";
+  sbUrl="https://lkdztpxuwgiposwqptly.supabase.co";
+}
 let gubreGecmisi=[];
 let aktifIslem=null;
 let karisim=[{ad:"",miktar:0,birim:"ml"},{ad:"",miktar:0,birim:"ml"},{ad:"",miktar:0,birim:"ml"}];
