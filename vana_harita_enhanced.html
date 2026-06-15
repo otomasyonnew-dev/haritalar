@@ -225,6 +225,7 @@ const GUBRE_LIST=[
   {ad:"Kalsiyum Nitrat",stok:4000},
   {ad:"Magnezyum S¸lf‚t",stok:1500}
 ];
+const GUBRE_DEFAULT=[{ad:"DAP",stok:5000},{ad:"Amonyum S¸lf‚t",stok:8000},{ad:"Potasyum Nitrat",stok:3000},{ad:"Mono Amonyum Fosfat",stok:2500},{ad:"Kalsiyum Nitrat",stok:4000},{ad:"Magnezyum S¸lf‚t",stok:1500}];
 let islemTipi="sulama";
 let ghKullanici=localStorage.getItem("ghKullanici")||"";
 let aktifKullanici="";
@@ -423,18 +424,19 @@ function stokUygula(rows){
   toast("‚úì "+GUBRE_LIST.length+" g√ºbre y√ºklendi");
 }
 function karisimPanelAc(){
-  if(islemTipi!=="gubre"){toast("G√ºbreleme modunu se√ßin");return;}
+  if(islemTipi!=="gubre"){toast("G¸breleme modunu seÁin");return;}
   var modal=document.getElementById("karisim-modal");
   modal.style.display="flex";
+  if(GUBRE_LIST.length===0){
+    GUBRE_DEFAULT.forEach(function(g){GUBRE_LIST.push({ad:g.ad,stok:g.stok,durum:""});});
+  }
   try{
     karisimSatirlariCiz();
-    if(GUBRE_LIST.length===0&&sbUrl&&sbKey){
-      var cont=document.getElementById("karisim-satirlar");
-      cont.innerHTML='<div style="color:rgba(0,191,255,0.6);text-align:center;padding:20px;font-size:12px;">‚è≥ Stok y√ºkleniyor...</div>';
+    if(sbUrl&&sbKey){
       sbStokYukle().then(function(){
         karisimSatirlariCiz();
-      }).catch(function(e){
-        cont.innerHTML='<div style="color:#ff8888;text-align:center;padding:20px;font-size:12px;">‚ö†Ô∏è Stok y√ºklenemedi:<br>'+e.message+'</div>';
+      }).catch(function(){
+        karisimSatirlariCiz();
       });
     }
   }catch(e){
@@ -1039,12 +1041,18 @@ async function sbStokYukle(){
   if(!sbUrl||!sbKey) return;
   try{
     var rows=await sbGet("gubre_stok");
-    if(rows.length>0){
+    if(rows&&rows.length>0){
       GUBRE_LIST.length=0;
       rows.forEach(function(g){GUBRE_LIST.push({ad:g.ad,stok:g.stok||0,durum:g.durum||""});});
       gubreListesiDoldur();
     }
-  }catch(e){console.warn("Stok yuklenemedi:",e.message);}
+    // rows bossa mevcut listeyi koru
+  }catch(e){
+    console.warn("Stok yuklenemedi:",e.message);
+    if(GUBRE_LIST.length===0){
+      GUBRE_DEFAULT.forEach(function(g){GUBRE_LIST.push({ad:g.ad,stok:g.stok,durum:""});});
+    }
+  }
 }
 function gubreListesiDoldur(){
   // GUBRE_LIST guncellendi, karisim paneli acilinca otomatik yuklenir
