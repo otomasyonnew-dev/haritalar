@@ -422,10 +422,20 @@ function karisimPanelAc(){
   if(islemTipi!=="gubre"){toast("Gübreleme modunu seçin");return;}
   var modal=document.getElementById("karisim-modal");
   modal.style.display="flex";
-  if(GUBRE_LIST.length===0&&sbUrl&&sbKey){
-    sbStokYukle().then(function(){karisimSatirlariCiz();});
-  } else {
+  try{
     karisimSatirlariCiz();
+    if(GUBRE_LIST.length===0&&sbUrl&&sbKey){
+      var cont=document.getElementById("karisim-satirlar");
+      cont.innerHTML='<div style="color:rgba(0,191,255,0.6);text-align:center;padding:20px;font-size:12px;">⏳ Stok yükleniyor...</div>';
+      sbStokYukle().then(function(){
+        karisimSatirlariCiz();
+      }).catch(function(e){
+        cont.innerHTML='<div style="color:#ff8888;text-align:center;padding:20px;font-size:12px;">⚠️ Stok yüklenemedi:<br>'+e.message+'</div>';
+      });
+    }
+  }catch(e){
+    document.getElementById("karisim-satirlar").innerHTML=
+      '<div style="color:#ff8888;text-align:center;padding:20px;font-size:12px;">⚠️ Hata: '+e.message+'</div>';
   }
 }
 function karisimPanelKapat(){
