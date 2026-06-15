@@ -1035,7 +1035,7 @@ async function sbStokYukle(){
   if(!sbUrl||!sbKey) return;
   try{
     var rows=await sbGet("gubre_stok");
-    if(rows&&rows.length>0){
+    if(rows.length>0){
       GUBRE_LIST.length=0;
       rows.forEach(function(g){GUBRE_LIST.push({ad:g.ad,stok:g.stok||0,durum:g.durum||""});});
       gubreListesiDoldur();
