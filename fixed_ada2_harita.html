@@ -497,9 +497,9 @@ function birimLabel(k){
   return (k.miktar||0)+" "+(k.birim||"ml")+"/aÄŸaÃ§";
 }
 function karisimSatirlariCiz(){
+  if(karisim.length===0){karisim=[{ad:"",miktar:0,birim:"ml"},{ad:"",miktar:0,birim:"ml"},{ad:"",miktar:0,birim:"ml"}];}
   var cont=document.getElementById("karisim-satirlar");
   cont.innerHTML="";
-  if(GUBRE_LIST.length===0){[{ad:"DAP",stok:5000},{ad:"Amonyum Sülfât",stok:8000},{ad:"Potasyum Nitrat",stok:3000},{ad:"Mono Amonyum Fosfat",stok:2500},{ad:"Kalsiyum Nitrat",stok:4000},{ad:"Magnezyum Sülfât",stok:1500}].forEach(function(g){GUBRE_LIST.push(g);});}
   if(GUBRE_LIST.length===0){
     cont.innerHTML='<div style="color:rgba(255,255,255,0.4);text-align:center;padding:20px;font-size:12px;">ðŸŒ¿ Stok listesi bos.<br>Sync Yukle veya Stok Yukle yapin.</div>';
     return;
