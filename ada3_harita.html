@@ -136,7 +136,7 @@ body{font-family:Arial,sans-serif;background:#1a1a2e;color:#fff;overflow:hidden;
 </div>
 <div id="gecmis-liste"></div>
 </div></div>
-<div id="karisim-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:99999;align-items:center;justify-content:center;"><div style="background:linear-gradient(135deg,#0a1628,#0d2a45);border:1px solid rgba(0,191,255,0.4);border-radius:16px;padding:24px;min-width:340px;max-width:95vw;box-shadow:0 16px 48px rgba(0,0,0,0.8);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;"><span style="color:#00BFFF;font-weight:900;font-size:15px;letter-spacing:1px;">🧪 KARİŞİM DÜZENLE</span><label style="display:flex;align-items:center;gap:6px;font-size:11px;color:#7fd4ff;cursor:pointer;margin-left:12px;"><input type="checkbox" id="fidan-modu-chk" onchange="fidanModuDegis()" style="width:15px;height:15px;accent-color:#27ae60;">🌱 Fidan Modu</label><button onclick="karisimPanelKapat()" style="background:none;border:none;color:#fff;font-size:20px;cursor:pointer;">&times;</button></div><div id="karisim-satirlar"></div><div style="margin-top:16px;display:flex;gap:8px;justify-content:flex-end;"><button class="btn g" onclick="karisimKaydet()">✔ Uygula</button><button class="btn r" onclick="karisimPanelKapat()">Vazgeç</button></div></div></div>
+<div id="karisim-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:99999;align-items:center;justify-content:center;"><div style="background:linear-gradient(135deg,#0a1628,#0d2a45);border:1px solid rgba(0,191,255,0.4);border-radius:16px;padding:24px;min-width:340px;max-width:95vw;box-shadow:0 16px 48px rgba(0,0,0,0.8);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;"><span style="color:#00BFFF;font-weight:900;font-size:15px;letter-spacing:1px;">🧪 KARİŞİM DÜZENLE</span><label style="display:flex;align-items:center;gap:6px;font-size:11px;color:#7fd4ff;cursor:pointer;margin-left:12px;"><input type="checkbox" id="fidan-modu-chk" onchange="fidanModuDegis()" onclick="fidanModuDegis()" style="width:15px;height:15px;accent-color:#27ae60;">🌱 Fidan Modu</label><button onclick="karisimPanelKapat()" style="background:none;border:none;color:#fff;font-size:20px;cursor:pointer;">&times;</button></div><div id="karisim-satirlar"></div><div style="margin-top:16px;display:flex;gap:8px;justify-content:flex-end;"><button class="btn g" onclick="karisimKaydet()">✔ Uygula</button><button class="btn r" onclick="karisimPanelKapat()">Vazgeç</button></div></div></div>
 <div id="kunye-panel"><span class="kp-label">VANA KUNYE</span><div class="kp-vno" id="kp-vno">V1</div><div class="kp-divider"></div><div class="kp-row"><span class="kp-rl">SIRA</span><span class="kp-rv" id="kp-sira">-</span></div><div class="kp-row"><span class="kp-rl">AGAC</span><span class="kp-rv" id="kp-agac">-</span></div><div id="kp-gubre-rows"></div>
 <div id="kp-yapildi-row" style="display:none;margin-top:8px;gap:6px;flex-direction:column;">
 <div id="kp-son-yapilan" style="font-size:10px;color:rgba(0,191,255,0.5);padding:4px 0;line-height:1.4;"></div>
@@ -749,6 +749,7 @@ async function sbIslemKaydet(kayit){
 async function sbStokGuncelle(){
   if(!sbUrl||!sbKey) return;
   try{
+    var mevcutRows=await sbGet("gubre_stok");
     // Stok guncelle: once update, basarisizsa insert
     for(var i=0;i<GUBRE_LIST.length;i++){
       var g=GUBRE_LIST[i];
@@ -1045,10 +1046,13 @@ async function sbStokYukle(){
   if(!sbUrl||!sbKey) return;
   try{
     var rows=await sbGet("gubre_stok");
-    if(rows.length>0){
+    if(rows&&rows.length>0){
       GUBRE_LIST.length=0;
-      rows.forEach(function(g){GUBRE_LIST.push({ad:g.ad,stok:g.stok||0,durum:g.durum||""});});
+      rows.forEach(function(g){
+        GUBRE_LIST.push({ad:g.ad,stok:parseFloat(g.stok)||0,durum:g.durum||""});
+      });
       gubreListesiDoldur();
+      console.log("Stok yuklendi:",GUBRE_LIST.length,"urun");
     }
   }catch(e){console.warn("Stok yuklenemedi:",e.message);}
 }
