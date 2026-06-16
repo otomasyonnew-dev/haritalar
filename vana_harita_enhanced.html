@@ -9,7 +9,8 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:Arial,sans-serif;background:#1a1a2e;color:#fff;overflow:hidden;height:100vh;}
-#topbar{height:48px;background:#0f3460;padding:0 10px;display:flex;align-items:center;gap:7px;overflow-x:auto;box-shadow:0 2px 8px rgba(0,0,0,0.5);position:relative;z-index:999;}
+#topbar{height:48px;background:#0f3460;padding:0 10px;display:flex;align-items:center;gap:7px;overflow-x:auto;-webkit-overflow-scrolling:touch;box-shadow:0 2px 8px rgba(0,0,0,0.5);position:relative;z-index:999;}
+#topbar button,#topbar select,#topbar input{cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
 #topbar h1{font-size:12px;letter-spacing:1px;white-space:nowrap;flex-shrink:0;}
 .cg{display:flex;align-items:center;gap:4px;flex-shrink:0;background:rgba(255,255,255,0.08);border-radius:6px;padding:3px 7px;}
 .cg label{font-size:10px;color:#aaa;white-space:nowrap;}
