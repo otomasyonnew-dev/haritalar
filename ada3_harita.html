@@ -136,7 +136,7 @@ body{font-family:Arial,sans-serif;background:#1a1a2e;color:#fff;overflow:hidden;
 </div>
 <div id="gecmis-liste"></div>
 </div></div>
-<div id="karisim-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:99999;align-items:center;justify-content:center;"><div style="background:linear-gradient(135deg,#0a1628,#0d2a45);border:1px solid rgba(0,191,255,0.4);border-radius:16px;padding:24px;min-width:340px;max-width:95vw;box-shadow:0 16px 48px rgba(0,0,0,0.8);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;"><span style="color:#00BFFF;font-weight:900;font-size:15px;letter-spacing:1px;">🧪 KARİŞİM DÜZENLE</span><button onclick="karisimPanelKapat()" style="background:none;border:none;color:#fff;font-size:20px;cursor:pointer;">&times;</button></div><div id="karisim-satirlar"></div><div style="margin-top:16px;display:flex;gap:8px;justify-content:flex-end;"><button class="btn g" onclick="karisimKaydet()">✔ Uygula</button><button class="btn r" onclick="karisimPanelKapat()">Vazgeç</button></div></div></div>
+<div id="karisim-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:99999;align-items:center;justify-content:center;"><div style="background:linear-gradient(135deg,#0a1628,#0d2a45);border:1px solid rgba(0,191,255,0.4);border-radius:16px;padding:24px;min-width:340px;max-width:95vw;box-shadow:0 16px 48px rgba(0,0,0,0.8);"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;"><span style="color:#00BFFF;font-weight:900;font-size:15px;letter-spacing:1px;">🧪 KARİŞİM DÜZENLE</span><label style="display:flex;align-items:center;gap:6px;font-size:11px;color:#7fd4ff;cursor:pointer;margin-left:12px;"><input type="checkbox" id="fidan-modu-chk" onchange="fidanModuDegis()" style="width:15px;height:15px;accent-color:#27ae60;">🌱 Fidan Modu</label><button onclick="karisimPanelKapat()" style="background:none;border:none;color:#fff;font-size:20px;cursor:pointer;">&times;</button></div><div id="karisim-satirlar"></div><div style="margin-top:16px;display:flex;gap:8px;justify-content:flex-end;"><button class="btn g" onclick="karisimKaydet()">✔ Uygula</button><button class="btn r" onclick="karisimPanelKapat()">Vazgeç</button></div></div></div>
 <div id="kunye-panel"><span class="kp-label">VANA KUNYE</span><div class="kp-vno" id="kp-vno">V1</div><div class="kp-divider"></div><div class="kp-row"><span class="kp-rl">SIRA</span><span class="kp-rv" id="kp-sira">-</span></div><div class="kp-row"><span class="kp-rl">AGAC</span><span class="kp-rv" id="kp-agac">-</span></div><div id="kp-gubre-rows"></div>
 <div id="kp-yapildi-row" style="display:none;margin-top:8px;gap:6px;flex-direction:column;">
 <div id="kp-son-yapilan" style="font-size:10px;color:rgba(0,191,255,0.5);padding:4px 0;line-height:1.4;"></div>
@@ -238,6 +238,8 @@ if(sbKey.indexOf("sb_publishable")===0||sbKey.indexOf("sb_secret")===0){
 let gubreGecmisi=[];
 let aktifIslem=null;
 let karisim=[{ad:"",miktar:0,birim:"ml"},{ad:"",miktar:0,birim:"ml"},{ad:"",miktar:0,birim:"ml"}];
+let karisimFidan=[{ad:"",miktar:0,birim:"ml"},{ad:"",miktar:0,birim:"ml"},{ad:"",miktar:0,birim:"ml"}];
+let fidanModu=false;
 
 const scroller=document.getElementById("scroller");
 const mw=document.getElementById("mw");
@@ -417,6 +419,10 @@ function stokUygula(rows){
   gubreListesiDoldur();
   toast("✓ "+GUBRE_LIST.length+" gübre yüklendi");
 }
+function fidanModuDegis(){
+  fidanModu=document.getElementById("fidan-modu-chk").checked;
+  karisimSatirlariCiz();
+}
 function karisimPanelAc(){
   if(islemTipi!=="gubre"){toast("Gübreleme modunu seçin");return;}
   var modal=document.getElementById("karisim-modal");
@@ -497,6 +503,8 @@ function birimLabel(k){
 }
 function karisimSatirlariCiz(){
   if(karisim.length===0){karisim=[{ad:"",miktar:0,birim:"ml"},{ad:"",miktar:0,birim:"ml"},{ad:"",miktar:0,birim:"ml"}];}
+  var aktifKarisim=fidanModu?karisimFidan:karisim;
+  var birimEtiketi=fidanModu?"/fidan":"/ağaç";
   var cont=document.getElementById("karisim-satirlar");
   cont.innerHTML="";
   if(GUBRE_LIST.length===0){
@@ -505,7 +513,7 @@ function karisimSatirlariCiz(){
   }
   var IST="background:#0d2a45;color:#fff;border:1px solid rgba(0,191,255,0.4);border-radius:6px;padding:4px 6px;font-size:12px;";
   var sayilar=["1. Ürün","2. Ürün","3. Ürün"];
-  karisim.forEach(function(k,i){
+  aktifKarisim.forEach(function(k,i){
     var row=document.createElement("div");
     row.style.cssText="display:flex;align-items:center;gap:6px;margin-bottom:10px;flex-wrap:wrap;";
     // Etiket
@@ -524,7 +532,7 @@ function karisimSatirlariCiz(){
       sel.appendChild(o);
     });
     sel.dataset.i=i;
-    sel.onchange=function(){karisim[this.dataset.i].ad=this.value;};
+    sel.onchange=function(){aktifKarisim[this.dataset.i].ad=this.value;};
     // Miktar
     var inp=document.createElement("input");
     inp.type="number";inp.min="0";inp.step="0.1";
@@ -532,7 +540,7 @@ function karisimSatirlariCiz(){
     inp.placeholder="Miktar";
     inp.style.cssText=IST+"width:65px;";
     inp.dataset.i=i;
-    inp.oninput=function(){karisim[this.dataset.i].miktar=parseFloat(this.value)||0;};
+    inp.oninput=function(){aktifKarisim[this.dataset.i].miktar=parseFloat(this.value)||0;};
     // Birim secimi
     var bSel=document.createElement("select");
     bSel.style.cssText=IST+"width:54px;";
@@ -543,10 +551,10 @@ function karisimSatirlariCiz(){
       bSel.appendChild(o);
     });
     bSel.dataset.i=i;
-    bSel.onchange=function(){karisim[this.dataset.i].birim=this.value;};
+    bSel.onchange=function(){aktifKarisim[this.dataset.i].birim=this.value;};
     // /agac etiketi
     var pl=document.createElement("span");
-    pl.textContent="/ağaç";
+    pl.textContent=birimEtiketi;
     pl.style.cssText="color:rgba(255,255,255,0.35);font-size:10px;flex-shrink:0;";
     row.appendChild(lbl);row.appendChild(sel);
     row.appendChild(inp);row.appendChild(bSel);row.appendChild(pl);
@@ -669,9 +677,10 @@ async function sbKaydet(){
     // 3. Karisim
     var karRows2=await sbGet("karisim");
     if(karRows2.length>0){
-      await sbUpdate("karisim",{islem_tipi:islemTipi,urunler:karisim,updated_at:new Date().toISOString()},"id=eq."+karRows2[0].id);
+      var aktifKar=fidanModu?karisimFidan:karisim;
+      await sbUpdate("karisim",{islem_tipi:islemTipi,urunler:aktifKar,updated_at:new Date().toISOString()},"id=eq."+karRows2[0].id);
     } else {
-      await sbInsert("karisim",{islem_tipi:islemTipi,urunler:karisim});
+      await sbInsert("karisim",{islem_tipi:islemTipi,urunler:aktifKar});
     }
     ghDurum("✓ Kaydedildi!","#7fff7f");
     toast("✓ Supabase'e kaydedildi!");
@@ -769,7 +778,8 @@ function islemBaslat(){
   if(!aktifKullanici){toast("Lütfen giriş yapın");return;}
   var i=parseInt(pinned.dataset.i);
   var v=pos[i];
-  var aktifler=karisim.filter(function(k){return k.ad&&k.miktar>0;});
+  var aktifKarisimSrc=fidanModu?karisimFidan:karisim;
+  var aktifler=aktifKarisimSrc.filter(function(k){return k.ad&&k.miktar>0;});
   var simdi=new Date();
   var baslaISO=simdi.toISOString();
   aktifIslem={
